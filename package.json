@@ -1,7 +1,7 @@
 {
   "name": "jupyter-cell-tags",
 	"displayName": "Jupyter Cell Tags",
-	"description": "Jupyter Cell Tags support",
+	"description": "Jupyter Cell Tags support for VS Code",
 	"version": "0.0.1",
 	"publisher": "ms-toolsai",
     "preview": true,
@@ -51,6 +51,21 @@
 					"command": "jupyter-cell-tags.addTag",
 					"when": "view == cell-tag",
 					"group": "navigation"
+				}
+			],
+			"view/item/context": [
+				{
+					"command": "jupyter-cell-tags.removeTag",
+					"when": "view == cell-tag",
+					"group": "inline"
+				}
+			]
+		},
+		"views": {
+			"jupyter": [
+				{
+					"id": "cell-tag",
+					"name": "Cell Tags"
 				}
 			]
 		}

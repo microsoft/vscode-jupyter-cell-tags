@@ -15,22 +15,29 @@ export class TagTreeDataProvider implements vscode.TreeDataProvider<string> {
 		this._tags = [];
 
 		this._disposables.push(vscode.window.onDidChangeActiveNotebookEditor(e => {
-			this._editorDisposables.forEach(d => d.dispose());
-
-			this._editorDisposables = [];
-			const editor = e;
-			this._editorDisposables.push(vscode.window.onDidChangeNotebookEditorSelection(e => {
-				this.updateTags(editor);
-			}));
-			this._editorDisposables.push(vscode.workspace.onDidChangeNotebookDocument(e => {
-				this.updateTags(editor);
-			}));
-			this.updateTags(e);
+			this.registerEditorListeners(e);
 		}));
 
 		if (vscode.window.activeNotebookEditor) {
-			this.updateTags(vscode.window.activeNotebookEditor);
+			this.registerEditorListeners(vscode.window.activeNotebookEditor);
 		}
+	}
+
+	private registerEditorListeners(editor: vscode.NotebookEditor | undefined) {
+		this._editorDisposables.forEach(d => d.dispose());
+
+		if (!editor) {
+			return;
+		}
+
+		this._editorDisposables = [];
+		this._editorDisposables.push(vscode.window.onDidChangeNotebookEditorSelection(e => {
+			this.updateTags(editor);
+		}));
+		this._editorDisposables.push(vscode.workspace.onDidChangeNotebookDocument(e => {
+			this.updateTags(editor);
+		}));
+		this.updateTags(editor);
 	}
 
 	private async updateTags(editor: vscode.NotebookEditor | undefined) {
