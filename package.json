@@ -1,5 +1,5 @@
 {
-	"name": "jupyter-cell-tags",
+	"name": "vscode-jupyter-cell-tags",
 	"displayName": "Jupyter Cell Tags",
 	"description": "Jupyter Cell Tags support for VS Code",
 	"version": "0.0.1",
