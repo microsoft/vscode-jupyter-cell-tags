@@ -1,18 +1,18 @@
 {
-  "name": "jupyter-cell-tags",
+	"name": "jupyter-cell-tags",
 	"displayName": "Jupyter Cell Tags",
 	"description": "Jupyter Cell Tags support for VS Code",
 	"version": "0.0.1",
 	"publisher": "ms-toolsai",
-    "preview": true,
+	"preview": true,
 	"icon": "icon.png",
-    "galleryBanner": {
-        "color": "#ffffff",
-        "theme": "light"
-    },
-    "author": {
-        "name": "Microsoft Corporation"
-    },
+	"galleryBanner": {
+		"color": "#ffffff",
+		"theme": "light"
+	},
+	"author": {
+		"name": "Microsoft Corporation"
+	},
 	"engines": {
 		"vscode": "^1.71.0"
 	},
@@ -20,12 +20,12 @@
 		"Notebooks"
 	],
 	"activationEvents": [
-        "onNotebook:jupyter-notebook"
+		"onNotebook:jupyter-notebook"
 	],
 	"repository": {
-        "type": "git",
-        "url": "https://github.com/Microsoft/vscode-jupyter-cell-tags"
-    },
+		"type": "git",
+		"url": "https://github.com/Microsoft/vscode-jupyter-cell-tags"
+	},
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
