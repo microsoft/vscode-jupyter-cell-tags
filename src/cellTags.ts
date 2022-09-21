@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 
 import * as vscode from 'vscode';
+import * as json from './json';
 
 export async function addCellTag(cell: vscode.NotebookCell, tags: string[]) {
     cell.metadata.custom.metadata.tags = cell.metadata.custom.metadata.tags ?? [];
@@ -56,6 +57,16 @@ export class CellTagStatusBarProvider implements vscode.NotebookCellStatusBarIte
 	}
 }
 
+export function getActiveCell() {
+	// find active cell
+	const editor = vscode.window.activeNotebookEditor;
+	if (!editor) {
+		return;
+	}
+
+	return editor.notebook.cellAt(editor.selections[0].start);
+}
+
 export function register(context: vscode.ExtensionContext) {
 	context.subscriptions.push(vscode.notebooks.registerNotebookCellStatusBarItemProvider('jupyter-notebook', new CellTagStatusBarProvider()));
 	context.subscriptions.push(vscode.commands.registerCommand('jupyter-cell-tags.removeTag', async (cell: vscode.NotebookCell | string, tag: string) => {
@@ -100,16 +111,7 @@ export function register(context: vscode.ExtensionContext) {
 
 	context.subscriptions.push(vscode.commands.registerCommand('jupyter-cell-tags.addTag', async (cell: vscode.NotebookCell | undefined) => {
 		if (!cell) {
-			// find active cell
-			const editor = vscode.window.activeNotebookEditor;
-			if (!editor) {
-				return;
-			}
-
-			cell = editor.notebook.cellAt(editor.selections[0].start);
-			if (!cell) {
-				return;
-			}
+			cell = getActiveCell();
 		}
 
 		if (!cell) {
@@ -127,5 +129,33 @@ export function register(context: vscode.ExtensionContext) {
 
 	context.subscriptions.push(vscode.commands.registerCommand('jupyter-cell-tags.paramaterize', async (cell: vscode.NotebookCell) => {
 		await addCellTag(cell, ['parameters']);
+	}));
+
+	context.subscriptions.push(vscode.commands.registerCommand('jupyter-cell-tags.editTagsInJSON', async () => {
+		let cell = getActiveCell();
+		if (!cell) {
+			return;
+		}
+		const resourceUri = cell.notebook.uri;
+		const document = await vscode.workspace.openTextDocument(resourceUri);
+		const tree = json.parseTree(document.getText());
+		const cells = json.findNodeAtLocation(tree, ['cells']);
+		if (cells && cells.children && cells.children[cell.index]) {
+			const cellNode = cells.children[cell.index];
+			const metadata = json.findNodeAtLocation(cellNode, ['metadata']);
+			if (metadata) {
+				const tags = json.findNodeAtLocation(metadata, ['tags']);
+				if (tags) {
+					const range = new vscode.Range(document.positionAt(tags.offset), document.positionAt(tags.offset + tags.length));
+					await vscode.window.showTextDocument(document, { selection: range, viewColumn: vscode.ViewColumn.Beside });
+				} else {
+					const range = new vscode.Range(document.positionAt(metadata.offset), document.positionAt(metadata.offset + metadata.length));
+					await vscode.window.showTextDocument(document, { selection: range, viewColumn: vscode.ViewColumn.Beside });
+				}
+			} else {
+				const range = new vscode.Range(document.positionAt(cellNode.offset), document.positionAt(cellNode.offset + cellNode.length));
+				await vscode.window.showTextDocument(document, { selection: range, viewColumn: vscode.ViewColumn.Beside });
+			}
+		}
 	}));
 }

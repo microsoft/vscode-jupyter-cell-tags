@@ -2,7 +2,7 @@
 	"name": "vscode-jupyter-cell-tags",
 	"displayName": "Jupyter Cell Tags",
 	"description": "Jupyter Cell Tags support for VS Code",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"publisher": "ms-toolsai",
 	"preview": true,
 	"icon": "icon.png",
@@ -40,6 +40,11 @@
 				"icon": "$(add)"
 			},
 			{
+				"command": "jupyter-cell-tags.editTagsInJSON",
+				"title": "Edit Cell Tags (JSON)",
+				"icon": "$(go-to-file)"
+			},
+			{
 				"command": "jupyter-cell-tags.paramaterize",
 				"title": "Mark Cell as Parameters"
 			}
@@ -51,6 +56,10 @@
 					"group": "jupytercelltags@1"
 				},
 				{
+					"command": "jupyter-cell-tags.editTagsInJSON",
+					"group": "jupytercelltags@2"
+				},
+				{
 					"command": "jupyter-cell-tags.paramaterize",
 					"group": "jupytercelltags@2"
 				}
@@ -58,6 +67,11 @@
 			"view/title": [
 				{
 					"command": "jupyter-cell-tags.addTag",
+					"when": "view == cell-tag",
+					"group": "navigation"
+				},
+				{
+					"command": "jupyter-cell-tags.editTagsInJSON",
 					"when": "view == cell-tag",
 					"group": "navigation"
 				}
