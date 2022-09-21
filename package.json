@@ -2,7 +2,7 @@
 	"name": "vscode-jupyter-cell-tags",
 	"displayName": "Jupyter Cell Tags",
 	"description": "Jupyter Cell Tags support for VS Code",
-	"version": "0.0.1",
+	"version": "0.1.0",
 	"publisher": "ms-toolsai",
 	"preview": true,
 	"icon": "icon.png",
@@ -41,7 +41,7 @@
 			},
 			{
 				"command": "jupyter-cell-tags.paramaterize",
-				"title": "Mark Cell as Parameter"
+				"title": "Mark Cell as Parameters"
 			}
 		],
 		"menus": {
@@ -74,7 +74,8 @@
 			"jupyter": [
 				{
 					"id": "cell-tag",
-					"name": "Cell Tags"
+					"name": "Cell Tags",
+					"contextualTitle": "Jupyter Cell Tags"
 				}
 			]
 		}
