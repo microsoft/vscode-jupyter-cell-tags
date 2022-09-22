@@ -2,7 +2,7 @@
 	"name": "vscode-jupyter-cell-tags",
 	"displayName": "Jupyter Cell Tags",
 	"description": "Jupyter Cell Tags support for VS Code",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"publisher": "ms-toolsai",
 	"preview": true,
 	"icon": "icon.png",
@@ -20,7 +20,11 @@
 		"Notebooks"
 	],
 	"activationEvents": [
-		"onNotebook:jupyter-notebook"
+		"onNotebook:jupyter-notebook",
+		"onCommand:jupyter-cell-tags.removeTag",
+		"onCommand:jupyter-cell-tags.addTag",
+		"onCommand:jupyter-cell-tags.editTagsInJSON",
+		"onCommand:jupyter-cell-tags.paramaterize"
 	],
 	"repository": {
 		"type": "git",
