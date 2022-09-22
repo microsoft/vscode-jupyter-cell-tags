@@ -86,12 +86,7 @@ export function register(context: vscode.ExtensionContext) {
 		let activeCell: vscode.NotebookCell | undefined;
 		if (typeof cell === 'string') {
 			// find active cell
-			const editor = vscode.window.activeNotebookEditor;
-			if (!editor) {
-				return;
-			}
-
-			activeCell = editor.notebook.cellAt(editor.selections[0].start);
+			activeCell = getActiveCell();
 			tag = cell;
 		} else {
 			activeCell = cell;
@@ -140,12 +135,16 @@ export function register(context: vscode.ExtensionContext) {
 		}
 	}));
 
-	context.subscriptions.push(vscode.commands.registerCommand('jupyter-cell-tags.paramaterize', async (cell: vscode.NotebookCell) => {
+	context.subscriptions.push(vscode.commands.registerCommand('jupyter-cell-tags.paramaterize', async (cell: vscode.NotebookCell | undefined) => {
+		cell = cell ?? getActiveCell();
+		if (!cell) {
+			return;
+		}
 		await addCellTag(cell, ['parameters']);
 	}));
 
-	context.subscriptions.push(vscode.commands.registerCommand('jupyter-cell-tags.editTagsInJSON', async () => {
-		let cell = getActiveCell();
+	context.subscriptions.push(vscode.commands.registerCommand('jupyter-cell-tags.editTagsInJSON', async (cell: vscode.NotebookCell | undefined) => {
+		cell = cell ?? getActiveCell();
 		if (!cell) {
 			return;
 		}
