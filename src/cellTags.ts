@@ -5,19 +5,32 @@ import * as vscode from 'vscode';
 import * as json from './json';
 
 export async function addCellTag(cell: vscode.NotebookCell, tags: string[]) {
-    cell.metadata.custom.metadata.tags = cell.metadata.custom.metadata.tags ?? [];
+	const oldTags = cell.metadata.custom?.metadata?.tags ?? [];
     const newTags: string[] = [];
     for (const tag of tags) {
-        if (!cell.metadata.custom.metadata.tags.includes(tag)) {
+        if (!oldTags.includes(tag)) {
             newTags.push(tag);
         }
     }
-    cell.metadata.custom.metadata.tags.push(...newTags);
-    
+	if (newTags.length) {
+		oldTags.push(...newTags);
+	}
+
+	const cellMetadata = { ...cell.metadata };
+	if (!cellMetadata.custom) {
+		cellMetadata.custom = {};
+	}
+
+	if (!cellMetadata.custom.metadata) {
+		cellMetadata.custom.metadata = {};
+	}
+
+	cellMetadata.custom.metadata.tags = oldTags;
+
     // create workspace edit to update tag
     const edit = new vscode.WorkspaceEdit();
     const nbEdit = vscode.NotebookEdit.updateCellMetadata(cell.index, {
-        ...cell.metadata,
+        ...cellMetadata,
     });
     edit.set(cell.notebook.uri, [nbEdit]);
     await vscode.workspace.applyEdit(edit);
