@@ -80,6 +80,39 @@ export function getActiveCell() {
 	return editor.notebook.cellAt(editor.selections[0].start);
 }
 
+export function reviveCell(args: vscode.NotebookCell | vscode.Uri | undefined): vscode.NotebookCell | undefined {
+	if (!args) {
+		return getActiveCell();
+	}
+
+	if (args && 'index' in args && 'kind' in args && 'notebook' in args && 'document' in args) {
+        return args as vscode.NotebookCell;
+    }
+
+	if (args && 'scheme' in args && 'path' in args) {
+		const cellUri = vscode.Uri.from(args);
+		const cellUriStr = cellUri.toString();
+		let activeCell: vscode.NotebookCell | undefined = undefined;
+
+		for (const document of vscode.workspace.notebookDocuments) {
+			for (const cell of document.getCells()) {
+				if (cell.document.uri.toString() === cellUriStr) {
+					activeCell = cell;
+					break;
+				}
+			}
+
+			if (activeCell) {
+				break;
+			}
+		}
+
+		return activeCell;
+	}
+
+	return undefined;
+}
+
 export function register(context: vscode.ExtensionContext) {
 	context.subscriptions.push(vscode.notebooks.registerNotebookCellStatusBarItemProvider('jupyter-notebook', new CellTagStatusBarProvider()));
 	context.subscriptions.push(vscode.commands.registerCommand('jupyter-cell-tags.removeTag', async (cell: vscode.NotebookCell | string, tag: string) => {
@@ -117,11 +150,9 @@ export function register(context: vscode.ExtensionContext) {
         }
 	}));
 
-	context.subscriptions.push(vscode.commands.registerCommand('jupyter-cell-tags.addTag', async (cell: vscode.NotebookCell | undefined) => {
-		if (!cell) {
-			cell = getActiveCell();
-		}
-
+	context.subscriptions.push(vscode.commands.registerCommand('jupyter-cell-tags.addTag', async (cell: vscode.NotebookCell | vscode.Uri | undefined) => {
+		cell = reviveCell(cell);
+		
 		if (!cell) {
 			return;
 		}
@@ -135,16 +166,16 @@ export function register(context: vscode.ExtensionContext) {
 		}
 	}));
 
-	context.subscriptions.push(vscode.commands.registerCommand('jupyter-cell-tags.paramaterize', async (cell: vscode.NotebookCell | undefined) => {
-		cell = cell ?? getActiveCell();
+	context.subscriptions.push(vscode.commands.registerCommand('jupyter-cell-tags.paramaterize', async (cell: vscode.NotebookCell | vscode.Uri | undefined) => {
+		cell = reviveCell(cell);
 		if (!cell) {
 			return;
 		}
 		await addCellTag(cell, ['parameters']);
 	}));
 
-	context.subscriptions.push(vscode.commands.registerCommand('jupyter-cell-tags.editTagsInJSON', async (cell: vscode.NotebookCell | undefined) => {
-		cell = cell ?? getActiveCell();
+	context.subscriptions.push(vscode.commands.registerCommand('jupyter-cell-tags.editTagsInJSON', async (cell: vscode.NotebookCell | vscode.Uri | undefined) => {
+		cell = reviveCell(cell);
 		if (!cell) {
 			return;
 		}
