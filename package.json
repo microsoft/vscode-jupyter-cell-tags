@@ -13,6 +13,9 @@
 	"author": {
 		"name": "Microsoft Corporation"
 	},
+	"enabledApiProposals": [
+		"localization"
+	],
 	"engines": {
 		"vscode": "^1.71.0"
 	},
@@ -31,26 +34,27 @@
 		"url": "https://github.com/Microsoft/vscode-jupyter-cell-tags"
 	},
 	"main": "./out/extension.js",
+	"l10n": "./l10n",
 	"contributes": {
 		"commands": [
 			{
 				"command": "jupyter-cell-tags.removeTag",
-				"title": "Remove Cell Tag",
+				"title": "%command.removeTag%",
 				"icon": "$(close)"
 			},
 			{
 				"command": "jupyter-cell-tags.addTag",
-				"title": "Add Cell Tag",
+				"title": "%command.addTag%",
 				"icon": "$(add)"
 			},
 			{
 				"command": "jupyter-cell-tags.editTagsInJSON",
-				"title": "Edit Cell Tags (JSON)",
+				"title": "%command.editCellTag%",
 				"icon": "$(go-to-file)"
 			},
 			{
 				"command": "jupyter-cell-tags.paramaterize",
-				"title": "Mark Cell as Parameters"
+				"title": "%command.paramaterize%"
 			}
 		],
 		"menus": {
@@ -92,8 +96,8 @@
 			"jupyter": [
 				{
 					"id": "cell-tag",
-					"name": "Cell Tags",
-					"contextualTitle": "Jupyter Cell Tags"
+					"name": "%view.cellTags%",
+					"contextualTitle": "%view.cellTagsContextualTitle%"
 				}
 			]
 		}

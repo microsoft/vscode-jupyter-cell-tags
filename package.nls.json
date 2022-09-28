@@ -1,0 +1,8 @@
+{
+    "command.removeTag": "Remove Cell Tag",
+    "command.addTag": "Add Cell Tag",
+    "command.editCellTag": "Edit Cell Tags (JSON)",
+    "command.paramaterize": "Mark Cell as Parameters",
+    "view.cellTags": "Cell Tags",
+    "view.cellTagsContextualTitle": "Jupyter Cell Tags"
+  }

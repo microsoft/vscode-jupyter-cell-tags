@@ -42,9 +42,9 @@ export class CellTagStatusBarProvider implements vscode.NotebookCellStatusBarIte
 		cell.metadata.custom?.metadata?.tags?.forEach((tag: string) => {
 			items.push({
 				text: '$(close) ' + tag,
-				tooltip: tag,
+				tooltip: vscode.l10n.t('Remove Tag {0}', tag),
 				command: {
-					title: `Remove Tag ${tag}`,
+					title: vscode.l10n.t('Remove Tag {0}', tag),
 					command: 'jupyter-cell-tags.removeTag',
 					arguments: [cell, tag]
 				},
@@ -56,9 +56,9 @@ export class CellTagStatusBarProvider implements vscode.NotebookCellStatusBarIte
 			// add insert tag status bar item
 			items.push({
 				text: '$(plus) Tag',
-				tooltip: 'Add Tag',
+				tooltip: vscode.l10n.t('Add Tag'),
 				command: {
-					title: 'Add Tag',
+					title: vscode.l10n.t('Add Tag'),
 					command: 'jupyter-cell-tags.addTag',
 					arguments: [cell]
 				},

@@ -18,6 +18,7 @@ extends:
   template: azure-pipelines/extension/stable.yml@templates
   parameters:
     publishExtension: true
+    l10nSourcePaths: ./src
     buildSteps:
       - script: npm i -g npm@8.15.1
         displayName: npm install npm@8.15.1
