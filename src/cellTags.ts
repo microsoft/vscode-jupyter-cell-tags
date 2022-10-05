@@ -77,6 +77,10 @@ export function getActiveCell() {
 		return;
 	}
 
+	if (editor.selections[0].start >= editor.notebook.cellCount) {
+		return;
+	}
+
 	return editor.notebook.cellAt(editor.selections[0].start);
 }
 
