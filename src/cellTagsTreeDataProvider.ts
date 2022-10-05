@@ -53,10 +53,6 @@ export class TagTreeDataProvider implements vscode.TreeDataProvider<string> {
 			return;
 		}
 
-		if (!editor.notebook) {
-			return;
-		}
-
 		const activeCell = editor.notebook.cellAt(editor.selections[0].start);
 		if (!activeCell) {
 			this._tags = [];

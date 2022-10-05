@@ -73,7 +73,7 @@ export class CellTagStatusBarProvider implements vscode.NotebookCellStatusBarIte
 export function getActiveCell() {
 	// find active cell
 	const editor = vscode.window.activeNotebookEditor;
-	if (!editor || !editor.notebook) {
+	if (!editor) {
 		return;
 	}
 
