@@ -2,7 +2,7 @@
 
 This extension provides support for notebook cell tags in Visual Studio Code for workng with tools like [`papermill`](https://github.com/nteract/papermill), [`nbconvert`](https://github.com/jupyter/nbconvert), [`nbgrader`](https://github.com/jupyter/nbgrader) and many more. Support for adding slide types to notebook cells are provided by the [Jupyter Slide Show](https://marketplace.visualstudio.com/items?itemName=ms-toolsai.vscode-jupyter-slideshow) extension.
 
-Features:
+### Features:
 - Add a tag to the cell you're on by opening the Command Palette (`Cmd+Shift+P`) and selecting **Add Cell Tag** or by clicking **+ Tag** on the cell ![Add cell tag](images/add-cell-tag.png)
 - Add multiple tags to the cell you're on by opening the Command Palette (`Cmd+Shift+P`) and selecting **Jupyter: Focus on Cell Tags View** and clicking on **+** ![Cell tags view](images/cell-tags-view.png)
 - Modify tags in the notebook's metadata (JSON format) by opening the Command Palette (`Cmd+Shift+P`) and selecting **Edit Cell Tags (JSON)** or by clicking out to it from the Cell Tags View ![Cell tags json](images/cell-tags-json.png)
