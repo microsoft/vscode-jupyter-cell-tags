@@ -30,7 +30,11 @@ export class TagTreeDataProvider implements vscode.TreeDataProvider<string> {
 			return;
 		}
 
-		vscode.commands.executeCommand('setContext', 'jupyter:showTagsExplorer', true);
+		if (editor.notebook.notebookType !== 'jupyter-notebook') {
+			return;
+		}
+
+		await vscode.commands.executeCommand('setContext', 'jupyter:showTagsExplorer', true);
 
 		this._editorDisposables = [];
 		this._editorDisposables.push(vscode.window.onDidChangeNotebookEditorSelection(e => {
