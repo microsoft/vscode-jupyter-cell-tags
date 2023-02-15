@@ -94,10 +94,17 @@
 				{
 					"id": "cell-tag",
 					"name": "Cell Tags",
-					"contextualTitle": "Jupyter Cell Tags"
+					"type": "tree",
+					"when": "jupyter:showTagsExplorer"
 				}
 			]
-		}
+		},
+		"viewsWelcome": [
+			{
+				"view": "cell-tag",
+				"contents": "No tags found for the selected cell. Use the [Add Cell Tag](command:jupyter-cell-tags.addTag) command to add tags."
+			}
+		]
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
