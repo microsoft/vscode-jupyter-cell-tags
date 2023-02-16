@@ -90,12 +90,14 @@
 			]
 		},
 		"views": {
-			"jupyter": [
+			"jupyter-variables": [
 				{
 					"id": "cell-tag",
 					"name": "Cell Tags",
 					"type": "tree",
-					"when": "jupyter:showTagsExplorer"
+					"icon": "$(tag)",
+					"when": "jupyter:showTagsExplorer",
+					"visibility": "collapsed"
 				}
 			]
 		},
