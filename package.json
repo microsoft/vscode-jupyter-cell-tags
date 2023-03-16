@@ -2,7 +2,7 @@
 	"name": "vscode-jupyter-cell-tags",
 	"displayName": "Jupyter Cell Tags",
 	"description": "Jupyter Cell Tags support for VS Code",
-	"version": "0.1.7",
+	"version": "0.1.8",
 	"publisher": "ms-toolsai",
 	"preview": true,
 	"icon": "icon.png",
@@ -96,7 +96,7 @@
 					"name": "Cell Tags",
 					"type": "tree",
 					"icon": "$(tag)",
-					"when": "jupyter:showTagsExplorer",
+					"when": "jupyter:showTagsExplorer && jupyter.hasNativeNotebookOrInteractiveWindowOpen",
 					"visibility": "collapsed"
 				}
 			]
