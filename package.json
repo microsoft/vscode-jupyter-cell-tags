@@ -58,15 +58,18 @@
 			"notebook/cell/title": [
 				{
 					"command": "jupyter-cell-tags.addTag",
-					"group": "jupytercelltags@1"
+					"group": "jupytercelltags@1",
+					"when": "notebookType == 'jupyter-notebook'"
 				},
 				{
 					"command": "jupyter-cell-tags.editTagsInJSON",
-					"group": "jupytercelltags@2"
+					"group": "jupytercelltags@2",
+					"when": "notebookType == 'jupyter-notebook'"
 				},
 				{
 					"command": "jupyter-cell-tags.paramaterize",
-					"group": "jupytercelltags@2"
+					"group": "jupytercelltags@2",
+					"when": "notebookType == 'jupyter-notebook'"
 				}
 			],
 			"view/title": [
