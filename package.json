@@ -87,6 +87,16 @@
 					"when": "view == cell-tag",
 					"group": "inline"
 				}
+			],
+			"commandPalette": [
+				{
+					"command": "jupyter-cell-tags.addTag",
+					"when": "notebookEditorFocused"
+				},
+				{
+					"command": "jupyter-cell-tags.removeTag",
+					"when": "notebookEditorFocused"
+				}
 			]
 		},
 		"views": {
